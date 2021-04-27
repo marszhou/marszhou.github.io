@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      button {
+        width: 100vw;
+      }
+      textarea {
+        resize: none;
+        width: 100vw;
+        height: 10em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="count"></h1>
+    <textarea id="result"></textarea>
+    <br />
+    <button id="copy">拷贝</button>
+    <button id="clear">清空</button>
+    <script>
+      function updateCount() {
+        document.getElementById('count').innerText = `${coords.length}个记录`
+      }
+
+      let key = 'tracker'
+      let coords =
+        (localStorage.getItem(key) && JSON.parse(localStorage.getItem(key))) ||
+        []
+
+      updateCount()
+
+      navigator.geolocation.watchPosition(
+        function (pos) {
+          let last = [...coords].pop()
+          if (
+            last &&
+            last[0] === pos.coords.longitude &&
+            last[1] === pos.coords.latitude
+          ) {
+            return
+          }
+          coords.push([pos.coords.longitude, pos.coords.latitude])
+          localStorage.setItem(key, JSON.stringify(coords))
+          updateCount()
+        },
+        function (error) {},
+        {
+          maximumAge: 0,
+          enableHighAccuracy: true,
+          timeout: Infinity,
+        }
+      )
+
+      document.getElementById('copy').addEventListener('click', () => {
+        let result = document.getElementById('result')
+        result.value = JSON.stringify(coords)
+
+        result.select()
+        result.setSelectionRange(0, 9999999)
+
+        document.execCommand('copy')
+      })
+
+      document.getElementById('clear').addEventListener('click', () => {
+        coords = []
+        localStorage.removeItem(key)
+        result.value = ''
+        updateCount()
+      })
+    </script>
+  </body>
+</html>
