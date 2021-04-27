@@ -62,7 +62,9 @@
 
       document.getElementById('copy').addEventListener('click', () => {
         let result = document.getElementById('result')
-        result.value = JSON.stringify(coords)
+        result.value = `
+        var center = ${JSON.stringify(coords[0])}
+        var coordinates = ${JSON.stringify(coords)}`
 
         result.select()
         result.setSelectionRange(0, 9999999)
