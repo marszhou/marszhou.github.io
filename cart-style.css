@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.parent{
+  border:1px solid #222;
+  display:flex;/*设为伸缩容器*/
+  flex-flow:row;/*伸缩项目单行排列*/
+}
+.stable{
+  width:200px;/*固定宽度*/
+  border:1px solid  #ccc;
+  margin:10px;
+  padding: 10px;
+}
+.change{
+  flex:1;/*这里设置为占比1，填充满剩余空间*/
+  border:1px solid #ff4400;
+  padding: 10px;
+  margin:10px;
+}
+h2 {
+  line-height: 1em;
+}
+
+.item {
+  border:#ccc 1px solid;
+  padding: 4px;
+  display: inline-block;
+  width:180px;
+  margin-bottom: 10px;
+}
+.item .title{
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+.item img {
+  height: 180px;
+}
+.item .price {
+  text-align: center;
+}
+
+.plist{
+  margin-top: 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: space-around;
+}
+
+.cart {
+  margin-top: 20px;
+}
+
+.cart .cart-item {
+  border:#ccc 1px solid;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.cart .cart-item img {
+  width: 180px;
+}
+.cart-item div {
+  text-align: center;
+}
+.cart-clr-btn {
+  float: right;
+}
