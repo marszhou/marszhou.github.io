@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>&#x6CE8;&#x610F;&#x4E8B;&#x9879;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 18px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h2 id="注意事项">注意事项</h2>
+<p>完成这个题目时，你只能在<font color='red'>cart.js</font>中写代码，不要修改其他任何文件。</p>
+<p>注意观察index.html中的html结构和注释。</p>
+<h2 id="商品数据">商品数据</h2>
+<p>你可以使用在线数据接口</p>
+<pre><code><code><div>https://60d9dcbd5f7bf100175477eb.mockapi.io/ikea/products
+https://60d9dcbd5f7bf100175477eb.mockapi.io/ikea/products2
+https://60d9dcbd5f7bf100175477eb.mockapi.io/ikea/products3
+</div></code></code></pre>
+<p>或使用json文件夹中的3个json数据</p>
+<p><font color='red'>注意：请求数据必须用ajax方式，环境已经提供了getJSON函数</font></p>
+<p><font color='red'>如果你想用ajax访问本地json数据，请务必使用http环境（vscode里启动live server）</font></p>
+<h2 id="商品数据说明">商品数据说明</h2>
+<pre><code class="language-json"><div>  {
+    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;40441412&quot;</span>,   <span class="hljs-comment">// 商品id</span>
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;维尔登斯 背包&quot;</span>, <span class="hljs-comment">// 商品名字</span>
+    <span class="hljs-attr">&quot;image&quot;</span>: <span class="hljs-string">&quot;https://www.ikea.cn/cn/zh/images/products/varldens-wei-er-deng-si-bei-bao-lan-se__0815696_PE773016_S4.JPG&quot;</span>, <span class="hljs-comment">// 商品图片</span>
+    <span class="hljs-attr">&quot;price&quot;</span>: <span class="hljs-number">249</span> <span class="hljs-comment">// 商品价格</span>
+  }
+</div></code></pre>
+<h2 id="商品html模版">商品html模版</h2>
+<pre><code class="language-html"><div>				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item&quot;</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span>特瑞拉 手提袋<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://www.ikea.cn/cn/zh/images/products/treblad-te-rui-la-shou-ti-dai-mi-huang-se__0872848_PE781617_S4.JPG&quot;</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;price&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;add-cart-btn&#x27;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>14.9元<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>加入购物车<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<h2 id="购物车html模版">购物车html模版</h2>
+<pre><code class="language-html"><div>				<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;cart-item&#x27;</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;title&#x27;</span>&gt;</span>维尔登斯 背包<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://www.ikea.cn/cn/zh/images/products/varldens-wei-er-deng-si-bei-bao-lan-se__0815696_PE773016_S4.JPG&quot;</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;&#x27;</span>&gt;</span>数量：2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>价格：100元<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&#x27;remove-cart-btn&#x27;</span>&gt;</span>删除<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<h2 id="页面示意图">页面示意图</h2>
+<p><img src="https://tva1.sinaimg.cn/large/008i3skNly1grzbi6jliuj313b0u0hdt.jpg" alt=""></p>
+
+    </body>
+    </html>
