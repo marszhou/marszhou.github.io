@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- 数据未载入完成时显示 载入中 ...-->
+    <div class="loading">载入中...</div>
+
+    <!-- 数据载入完成时显示 -->
+    <div class="content" style="display: none">
+      <!-- 左侧栏 -->
+      <div class="left">
+        <h2>商品列表</h2>
+        <div class="plist">
+          <!-- 商品列表显示在这里 -->
+          <!-- 一条商品开始 -->
+          <!--
+        <div class="item">
+          <div class="title">特瑞拉 手提袋</div>
+          <img src="https://www.ikea.cn/cn/zh/images/products/treblad-te-rui-la-shou-ti-dai-mi-huang-se__0872848_PE781617_S4.JPG">
+          <div class="price">
+            <button class='add-cart-btn'><span>14.9元</span>加入购物车</button>
+          </div>
+        </div>
+        -->
+          <!-- 一条商品结束 -->
+          <!-- 商品在这个div中排列 -->
+        </div>
+      </div>
+
+      <!-- 右侧栏 -->
+      <div class="right">
+        <h2>
+          购物车<button class="cart-clr-btn">
+            清空购物车
+          </button>
+        </h2>
+        <div class="cart">
+          <!-- 购物车列表显示在这里 -->
+          <!-- 一条购物车商品 -->
+          <!--
+        <div class='cart-item'>
+          <div class='title'>维尔登斯 背包</div>
+          <img src="https://www.ikea.cn/cn/zh/images/products/varldens-wei-er-deng-si-bei-bao-lan-se__0815696_PE773016_S4.JPG">
+          <div class=''>数量：2</div>
+          <div>价格：100元</div>
+          <div><button class='remove-cart-btn'>删除</button></div>
+        </div>
+        -->
+          <!-- 一条购物车商品结束 -->
+          <!-- 购物车商品在这个div中排列 -->
+        </div>
+      </div>
+    </div>
+
+    <script src="./cart.js"></script>
+  </body>
+</html>
