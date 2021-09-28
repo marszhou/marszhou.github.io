@@ -1,83 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-      }
-      button {
-        width: 100vw;
-      }
-      textarea {
-        resize: none;
-        width: 100vw;
-        height: 10em;
-      }
-    </style>
-  </head>
-  <body>
-    <h1 id="count"></h1>
-    <textarea id="result"></textarea>
-    <br />
-    <button id="copy">拷贝</button>
-    <button id="clear">清空</button>
-    <script>
-      function updateCount() {
-        document.getElementById('count').innerText = `${coords.length}个记录`
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+* {
+    margin: 0;
+    padding: 0;
+  }
+  button{
+    flex-grow: 1;
+  }
+  textarea {
+    resize: none;
+    width: 100vw;
+    height: 10em;
+  }
+  .container {
+    display: flex;
+  }
+  </style>
+</head>
+<body>
+<div>已经记录 <span id='counter'>0</span> 个坐标</div>
+<textarea id='text' readonly></textarea>
+<div class='container'>
+  <button id='watchBtn'>监听</button>
+  <button id='copyBtn'>复制结果</button>
+  <button id='clearBtn'>清除数据</button>
+</div>
+<script>
+let watchBtn = document.getElementById('watchBtn')
+let copyBtn = document.getElementById('copyBtn')
+let clearBtn = document.getElementById('clearBtn')
+let counter = document.getElementById('counter')
+let text = document.getElementById('text')
 
-      let key = 'tracker'
-      let coords =
-        (localStorage.getItem(key) && JSON.parse(localStorage.getItem(key))) ||
-        []
+let watchId = 0
+let lastTimestamp = 0
+let key = 'gps'
+let points = JSON.parse(localStorage.getItem(key)) || []
+counter.innerText = points.length
 
-      updateCount()
+function geoSuccess({
+  timestamp,
+  coords:{longitude/*经度*/, latitude/*纬度*/}})
+{
+  if (lastTimestamp === timestamp) return
+  lastTimestamp = timestamp
+  points.push([longitude, latitude])
+  counter.innerText = points.length
+  localStorage.setItem(key, JSON.stringify(points))
+}
 
-      navigator.geolocation.watchPosition(
-        function (pos) {
-          let last = [...coords].pop()
-          if (
-            last &&
-            last[0] === pos.coords.longitude &&
-            last[1] === pos.coords.latitude
-          ) {
-            return
-          }
-          coords.push([pos.coords.longitude, pos.coords.latitude])
-          localStorage.setItem(key, JSON.stringify(coords))
-          updateCount()
-        },
-        function (error) {},
-        {
-          maximumAge: 0,
-          enableHighAccuracy: true,
-          timeout: Infinity,
-        }
-      )
+watchBtn.onclick = function() {
+  if (watchId>0) {
+    navigator.geolocation.clearWatch(watchId)
+    watchId = 0
+    this.innerText = '监听'
+  }else {
+    watchId = navigator.geolocation.watchPosition(
+      geoSuccess
+    )
+    this.innerText = '停止'
+  }
+}
 
-      document.getElementById('copy').addEventListener('click', () => {
-        let result = document.getElementById('result')
-        result.value = `
-        var center = ${JSON.stringify(coords[0])}
-        var coordinates = ${JSON.stringify(coords)}`.trim()
+clearBtn.onclick = function() {
+  localStorage.removeItem(key)
+  points = []
+  text.value = ''
+}
 
-        result.select()
-        result.setSelectionRange(0, 9999999)
+copyBtn.onclick = function() {
+  text.value =
+`let center = ${JSON.stringify(points[0])}
+let coordinates = ${JSON.stringify(points)}`
+  text.select()
+  text.setSelectionRange(0, text.value.length)
+  document.execCommand('copy')
+}
+</script>
 
-        document.execCommand('copy')
-      })
-
-      document.getElementById('clear').addEventListener('click', () => {
-        coords = []
-        localStorage.removeItem(key)
-        result.value = ''
-        updateCount()
-      })
-    </script>
-  </body>
-</html>
+</body>
+</html>∏
